@@ -15,8 +15,8 @@ body {
     display: grid;
     grid-template-columns: auto 2fr;
     grid-template-rows: auto;
-    grid-template-areas: 'world-section settings-section'
-                         'info-section info-section';
+    grid-template-areas: "world-section settings-section"
+                         "info-section info-section";
 }
 
 .world-section {
@@ -27,9 +27,31 @@ body {
     grid-area: settings-section;
     width: var(--world-width);
     height: var(--world-height);
+    padding-left: 20px;
+
+    /* display: grid;
+    grid-template-areas: "settings-section-title",
+                         "settings-subtitle-spaceship",
+                         "settings-group"; */
+
+    /* padding: 50px; */
 
     background-color: black;
     border-left: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+#settings-title {
+    grid-area: settings-section-title;
+    /* display: inline-block; */
+    /* text-align: center; */
+}
+
+#settings-subtitle-spaceship {
+    grid-area: settings-subtitle-spaceship;
+}
+
+.settings-group {
+    grid-area: settings-group;
 }
 
 .info-section {

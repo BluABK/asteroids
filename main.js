@@ -1,3 +1,9 @@
+// import * as listeners from "./modules/listeners.js";
+
+// Settings items.
+document.getElementById("set-spaceship-move-rate").addEventListener("input", function() { setSpaceshipMoveRate(this.value)});
+document.getElementById("set-spaceship-turn-rate").addEventListener("input", function() { setSpaceshipTurnRate(this.value)});
+
 // Rebind keypress events to our own custom handler.
 document.addEventListener("keydown", function(event) {
     if (event.defaultPrevented) {
@@ -30,7 +36,7 @@ document.addEventListener("keydown", function(event) {
     }
     
     // Update world.
-    refresh();
+    update();
 
     // Consume the event so it doesn't get handled twice
     event.preventDefault(); // FIXME: Make sure to only consume the intended keys, currently it consumes all.
@@ -45,8 +51,11 @@ let world = {
 
 console.log("Hello World!", world);
 
-let spaceshipMoveRate = 15;
-let spaceshipTurnRate = Math.PI * 2;
+const SPACESHIP_DEFAULT_MOVE_RATE = 15;
+const SPACESHIP_DEFAULT_TURN_RATE = Math.PI * 2;
+
+let spaceshipMoveRate = SPACESHIP_DEFAULT_MOVE_RATE;
+let spaceshipTurnRate = SPACESHIP_DEFAULT_TURN_RATE;
 // Start with spaceship facing "north".
 let spaceshipAngle = 0;
 let spaceship = document.getElementById("spaceship");
@@ -55,12 +64,30 @@ let spaceshipSize = {
     width: 30,
     height: 30
 };
-  
+
 let position = {
     // Start at the centre of the world.
     x: world.width / 2,
     y: world.height / 2
 };
+
+function setSpaceshipMoveRate(rate = SPACESHIP_DEFAULT_MOVE_RATE) {
+    console.log(`Setting spaceship move rate: ${spaceshipMoveRate} --> ${rate}`, rate);
+    spaceshipMoveRate = rate;
+
+    // Update HTML.
+    document.getElementById("set-spaceship-move-rate").innerHTML = rate;
+    document.getElementById("spaceship-move-rate-indicator").innerHTML = rate;
+}
+
+function setSpaceshipTurnRate(rate = SPACESHIP_DEFAULT_TURN_RATE) {
+    console.log(`Setting spaceship turn rate: ${spaceshipTurnRate} --> ${rate}`, rate);
+    spaceshipTurnRate = rate;
+
+    // Update HTML.
+    document.getElementById("set-spaceship-turn-rate").innerHTML = rate;
+    document.getElementById("spaceship-turn-rate-indicator").innerHTML = rate;
+}
 
 /**
  * Updates current position with an offset (usually spaceship move rate).
@@ -89,7 +116,7 @@ function updatePosition(offset) {
     console.log(`Update position [${position.x}, ${position.y}] (offset: ${offset})...`);
 }
 
-function refresh() {
+function update() {
     // console.log("Refreshing...");
     let x = position.x - (spaceshipSize.width / 2);
     let y = position.y - (spaceshipSize.height / 2);
@@ -103,6 +130,16 @@ function refresh() {
  */
 
 // Initial refresh call to ensure we start with all the intended defaults.
-refresh();
+update();
 // Make ship visisble (starts invisible to avoid glitchy-looking repositioning pre initial refresh).
 spaceship.style.display = "block";
+
+// Run various setters so that HTML page gets updated with correct info.
+setSpaceshipMoveRate();
+setSpaceshipTurnRate();
+
+// Set world auto update interval.
+var autoRefresh = window.setInterval(function(){
+    // console.log("Auto refresh...")
+    update();
+},1000);
