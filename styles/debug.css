@@ -1,0 +1,11 @@
+.world-section {
+    border: 1px solid rgb(133, 29, 202);
+}
+
+.settings-section {
+    border: 1px solid teal;
+}
+
+.info-section {
+    border: 1px solid orange;
+}

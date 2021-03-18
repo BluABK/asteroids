@@ -11,14 +11,22 @@
         <title>SPAAAAAAAAACEEEEEE!</title>
 
         <link rel="stylesheet" type="text/css" href="styles/main.css">
+        <!-- <link rel="stylesheet" type="text/css" href="styles/debug.css"> -->
     </head>
 
     <body>
-        <div id="content">
-            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="world-svg-element" class="world">
-                <polygon id="spaceship" points="15,0 0,30 30,30"/>
-            </svg>
-            <p>Use the WASD (ZQSD on AZERTY) keys to move and steer.</p>
+        <div class="content">
+            <div class="world-section">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="world-svg-element" class="world">
+                    <polygon id="spaceship" points="15,0 0,30 30,30"/>
+                </svg>
+            </div>
+            <div class="settings-section">
+
+            </div>
+            <div class="info-section">
+                <p>Use the WASD (ZQSD on AZERTY) keys to move and steer.</p>
+            </div>
         </div>
         <script type="module" src="main.js"></script>
     </body>

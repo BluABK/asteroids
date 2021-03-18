@@ -1,21 +1,47 @@
-html {
-    padding: 0;
-    margin: 0;
+/* CSS Variables */
+:root {
+    --world-width: 1280px;
+    --world-height: 720px;
 }
 
 body {
-    margin: 0;
-    padding: 0;
+    /* margin: 0;
+    padding: 0; */
     background-color: rgb(36 , 36, 36);
     color:white;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: auto 2fr;
+    grid-template-rows: auto;
+    grid-template-areas: 'world-section settings-section'
+                         'info-section info-section';
+}
+
+.world-section {
+    grid-area: world-section;
+}
+
+.settings-section {
+    grid-area: settings-section;
+    width: var(--world-width);
+    height: var(--world-height);
+
+    background-color: black;
+    border-left: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.info-section {
+    grid-area: info-section;
 }
 
 .world {
     margin: 0px;
     padding: 0px;
     background-color: black;
-    width: 1280px;
-    height: 720px;
+    width: var(--world-width);
+    height: var(--world-height);
 }
   
 #spaceship {
