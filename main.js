@@ -1,5 +1,5 @@
 import {keys} from "./modules/keys.mjs";
-import {ship} from "./modules/ship.mjs";
+import {ship} from "./modules/ship/ship.mjs";
 
 // // Settings items.
 // document.getElementById("set-spaceship-move-rate").addEventListener("input", function() { setSpaceshipMoveRate(this.value)});
@@ -121,7 +121,12 @@ window.focus();
 // worldElement.appendChild("span");
 var world = document.getElementById("world-element");
 // Add spaceship.
-ships.add(Object.assign({}, ship).create("=Scl>", world, -0.4, "oldSchool"));
+var shipTemplate = Object.assign({}, ship);
+var player = shipTemplate.create("=Scl>", world, -0.4, "oldSchool");
+// var player = shipTemplate.create("=Scl>", world, -0.4, "speedLimiter");
+
+
+// ships.add(Object.assign({}, ship).create("=Scl>", world, -0.4, "oldSchool"));
 // ships.add(Object.assign({},ship).create("=Drg>",world,-0.25,"oldSchoolDrag"));
 // ships.add(Object.assign({},ship).create("=Fast>",world,-0.1,"speedster"));
 // ships.add(Object.assign({},ship).create("=Nimble>",world,0.05,"speedLimiter"));
@@ -150,7 +155,10 @@ ships.add(Object.assign({}, ship).create("=Scl>", world, -0.4, "oldSchool"));
  * The main loop.
  */
 function mainLoop(){
-    ships.update();
+    // console.log("player", player);
+    player.updateUserIO();
+    player.updatePos();
+    // ships.update();
     // update();
     // Request an animation frame with callback to self, so that it repeats/recurses infinitely.
     requestAnimationFrame(mainLoop);
