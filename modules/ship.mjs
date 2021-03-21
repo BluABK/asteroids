@@ -2,7 +2,6 @@ import {keys} from "./keys.mjs";
 
 export const ship = {
     element : null,
-    hasControl : false,
     speed : 0,
     speedC : 0,  // chase value for speed limit mode
     speedR : 0,  // real value (real as in actual speed)
@@ -17,34 +16,35 @@ export const ship = {
     matrix : null,  // matrix to create when instantiated 
     pos : null,     // position of ship to create when instantiated 
     delta : null,   // movement of ship to create when instantiated 
-    checkInView(){
+    checkInView() {
         var bounds = this.element.getBoundingClientRect();
-        if(Math.max(bounds.right,bounds.left) < 0 && this.delta.x < 0){
+        if (Math.max(bounds.right,bounds.left) < 0 && this.delta.x < 0) {
             this.pos.x = innerWidth;
-        }else if(Math.min(bounds.right,bounds.left) > innerWidth  && this.delta.x > 0){
+        } else if(Math.min(bounds.right,bounds.left) > innerWidth  && this.delta.x > 0) {
             this.pos.x = 0;
         }
-        if(Math.max(bounds.top,bounds.bottom) < 0  && this.delta.y < 0){
+        if (Math.max(bounds.top,bounds.bottom) < 0  && this.delta.y < 0) {
             this.pos.y = innerHeight;
-        }else if( Math.min(bounds.top,bounds.bottom) > innerHeight  && this.delta.y > 0){
+        } else if ( Math.min(bounds.top,bounds.bottom) > innerHeight  && this.delta.y > 0) {
             this.pos.y = 0;
         }
         
     },
     controls : {
-        oldSchool(){
-            if(this.hasControl){
-                if(keys.ArrowUp){
-                    this.delta.x += Math.cos(this.angle) * 0.1;
-                    this.delta.y += Math.sin(this.angle) * 0.1;
-                }
-                if(keys.ArrowLeft){
-                    this.deltaAngle -= 0.001;
-                }
-                if(keys.ArrowRight){
-                    this.deltaAngle += 0.001;
-                }
+        oldSchool() {
+            // Controlled motion.
+            if(keys.ArrowUp) {
+                this.delta.x += Math.cos(this.angle) * 0.1;
+                this.delta.y += Math.sin(this.angle) * 0.1;
             }
+            if(keys.ArrowLeft) {
+                this.deltaAngle -= 0.001;
+            }
+            if(keys.ArrowRight) {
+                this.deltaAngle += 0.001;
+            }
+            
+            // Indirect effects.
             this.pos.x += this.delta.x;
             this.pos.y += this.delta.y;
             this.angle += this.deltaAngle;
@@ -53,19 +53,18 @@ export const ship = {
             this.delta.y *= 0.995;
             this.deltaAngle *= 0.995;            
         },
-        oldSchoolDrag(){
-            if(this.hasControl){
-                if(keys.ArrowUp){
-                    this.delta.x += Math.cos(this.angle) * 0.5;
-                    this.delta.y += Math.sin(this.angle) * 0.5;
-                }
-                if(keys.ArrowLeft){
-                    this.deltaAngle -= 0.01;
-                }
-                if(keys.ArrowRight){
-                    this.deltaAngle += 0.01;
-                }
+        oldSchoolDrag() {
+            if(keys.ArrowUp) {
+                this.delta.x += Math.cos(this.angle) * 0.5;
+                this.delta.y += Math.sin(this.angle) * 0.5;
             }
+            if(keys.ArrowLeft) {
+                this.deltaAngle -= 0.01;
+            }
+            if(keys.ArrowRight) {
+                this.deltaAngle += 0.01;
+            }
+
             this.pos.x += this.delta.x;
             this.pos.y += this.delta.y;
             this.angle += this.deltaAngle;
@@ -74,19 +73,17 @@ export const ship = {
             this.deltaAngle *= 0.9;
             this.displayAngle = this.angle;
         },
-        speedster(){
-            if(this.hasControl){
-                
-                if(keys.ArrowUp){
-                    this.speed += 0.02;
-                }
-                if(keys.ArrowLeft){
-                    this.deltaAngle -= 0.01;
-                }
-                if(keys.ArrowRight){
-                    this.deltaAngle += 0.01;
-                }
+        speedster() {
+            if(keys.ArrowUp) {
+                this.speed += 0.02;
             }
+            if(keys.ArrowLeft) {
+                this.deltaAngle -= 0.01;
+            }
+            if(keys.ArrowRight) {
+                this.deltaAngle += 0.01;
+            }
+
             this.speed *= 0.99;
             this.deltaAngle *= 0.9;
             this.angle += this.deltaAngle;
@@ -98,22 +95,19 @@ export const ship = {
             this.pos.y += this.delta.y;
             this.displayAngle = this.angle;
         },
-        engineRev(){  // this one has a 3 control. Engine speed then affects acceleration. 
-            if(this.hasControl){
-                if(keys.ArrowUp){
-                    this.engSpeed = 3
-                }else{
-                    this.engSpeed *= 0.9;
-                }
-                if(keys.ArrowLeft){
-                    this.angle -= 0.1;
-                }
-                if(keys.ArrowRight){
-                    this.angle += 0.1;
-                }
+        engineRev() {  // this one has a 3 control. Engine speed then affects acceleration. 
+            if(keys.ArrowUp) {
+                this.engSpeed = 3
             }else{
                 this.engSpeed *= 0.9;
             }
+            if(keys.ArrowLeft) {
+                this.angle -= 0.1;
+            }
+            if(keys.ArrowRight) {
+                this.angle += 0.1;
+            }
+
             this.engSpeedC += (this.engSpeed- this.engSpeedR) * 0.05;
             this.engSpeedC *= 0.1;
             this.engSpeedR += this.engSpeedC;
@@ -131,23 +125,19 @@ export const ship = {
             this.pos.y += this.delta.y;
             this.displayAngle = this.angleR;
         },
-        speedLimiter(){
-            if(this.hasControl){
-    
-                if(keys.ArrowUp){
-                    this.speed = 15;
-                }else{
-                    this.speed = 0;
-                }
-                if(keys.ArrowLeft){
-                    this.angle -= 0.1;
-                }
-                if(keys.ArrowRight){
-                    this.angle += 0.1;
-                }
+        speedLimiter() {
+            if(keys.ArrowUp) {
+                this.speed = 15;
             }else{
                 this.speed = 0;
             }
+            if(keys.ArrowLeft) {
+                this.angle -= 0.1;
+            }
+            if(keys.ArrowRight) {
+                this.angle += 0.1;
+            }
+
             this.speedC += (this.speed - this.speedR) * 0.1;
             this.speedC *= 0.4;
             this.speedR += this.speedC;
@@ -161,9 +151,9 @@ export const ship = {
             this.displayAngle = this.angleR;
         }
     },
-    updateUserIO(){
+    updateUserIO() {
     },
-    updatePos(){
+    updatePos() {
         this.checkInView();
         var m = this.matrix;
         m[3] = m[0] = Math.cos(this.displayAngle);

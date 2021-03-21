@@ -97,18 +97,7 @@ const ships = {
     controling : 0,
     add(ship){ this.items.push(ship) },
     update(){
-        var i;
-        
-        for(i = 0; i < this.items.length; i++){
-            if(keys["Digit" + (i+1)]){
-                if(this.controling !== -1){
-                    this.items[this.controling].element.style.color = "green";
-                    this.items[this.controling].hasControl = false;
-                }
-                this.controling = i;
-                this.items[i].element.style.color = "red";
-                this.items[i].hasControl = true;
-            }
+        for(let i = 0; i < this.items.length; i++){
             this.items[i].updateUserIO();
             this.items[i].updatePos();
         }
@@ -133,10 +122,10 @@ window.focus();
 var world = document.getElementById("world-element");
 // Add spaceship.
 ships.add(Object.assign({}, ship).create("=Scl>", world, -0.4, "oldSchool"));
-ships.add(Object.assign({},ship).create("=Drg>",world,-0.25,"oldSchoolDrag"));
-ships.add(Object.assign({},ship).create("=Fast>",world,-0.1,"speedster"));
-ships.add(Object.assign({},ship).create("=Nimble>",world,0.05,"speedLimiter"));
-ships.add(Object.assign({},ship).create("=Rev>",world,0.2,"engineRev"));
+// ships.add(Object.assign({},ship).create("=Drg>",world,-0.25,"oldSchoolDrag"));
+// ships.add(Object.assign({},ship).create("=Fast>",world,-0.1,"speedster"));
+// ships.add(Object.assign({},ship).create("=Nimble>",world,0.05,"speedLimiter"));
+// ships.add(Object.assign({},ship).create("=Rev>",world,0.2,"engineRev"));
 // function update() {
 //     let x = position.x - (spaceshipSize.width / 2);
 //     let y = position.y - (spaceshipSize.height / 2);
