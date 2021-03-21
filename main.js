@@ -11,7 +11,7 @@ document.addEventListener("keydown", function(event) {
     }
 
     // console.log("Adding keydown event listener...");
-  
+
     switch(event.code) {
       case "KeyS":
       case "ArrowDown":
@@ -34,7 +34,7 @@ document.addEventListener("keydown", function(event) {
         spaceshipAngle += spaceshipTurnRate;
         break;
     }
-    
+
     // Update world.
     update();
 
@@ -91,33 +91,32 @@ function setSpaceshipTurnRate(rate = SPACESHIP_DEFAULT_TURN_RATE) {
 
 /**
  * Updates current position with an offset (usually spaceship move rate).
- * 
- * @param {} offset 
+ *
+ * @param {} offset
  */
 function updatePosition(offset) {
     let rad = spaceshipAngle * (Math.PI / 180);
     position.x += (Math.sin(rad) * offset);
     position.y -= (Math.cos(rad) * offset);
-    
+
     // Ensure spaceship stays within bounds (X-axis).
     if (position.x < 0) {
         position.x = world.boundaryX;
     } else if (position.x > world.boundaryX) {
         position.x = 0;
     }
-    
+
     // Ensure spaceship stays within bounds (Y-axis).
     if (position.y < 0) {
         position.y = world.boundaryY;
     } else if (position.y > world.boundaryY) {
         position.y = 0;
     }
-    
+
     console.log(`Update position [${position.x}, ${position.y}] (offset: ${offset})...`);
 }
 
 function update() {
-    // console.log("Refreshing...");
     let x = position.x - (spaceshipSize.width / 2);
     let y = position.y - (spaceshipSize.height / 2);
     let transform = "translate(" + x + " " + y + ") rotate(" + spaceshipAngle + " 15 15) ";
@@ -129,17 +128,24 @@ function update() {
  * Global code to run last.
  */
 
-// Initial refresh call to ensure we start with all the intended defaults.
-update();
-// Make ship visisble (starts invisible to avoid glitchy-looking repositioning pre initial refresh).
+
+// Make ship visisble (starts invisible to avoid glitchy-looking repositioning pre initial update).
 spaceship.style.display = "block";
 
 // Run various setters so that HTML page gets updated with correct info.
 setSpaceshipMoveRate();
 setSpaceshipTurnRate();
 
-// Set world auto update interval.
-var autoRefresh = window.setInterval(function(){
-    // console.log("Auto refresh...")
+/**
+ * The main loop.
+ */
+function mainLoop(){
+    //ships.update();
     update();
-},1000);
+    // Request an animation frame with callback to self, so that it repeats/recurses infinitely.
+    requestAnimationFrame(mainLoop);
+}
+
+// Tell the browser that we wish to perform an animation and request that the browser
+// call a specified function to update an animation before the next repaint.
+requestAnimationFrame(mainLoop);
