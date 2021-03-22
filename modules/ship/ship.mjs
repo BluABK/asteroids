@@ -69,6 +69,7 @@ export const ship = {
         m[2] = -(m[1] = Math.sin(this.displayAngle));
         m[4] = this.pos.x;
         m[5] = this.pos.y;
+
         this.element.style.transform = `matrix(${m.join(",")})`;
     },
     /**
@@ -82,23 +83,16 @@ export const ship = {
      */
     create(shape, container, xOff, customControlScheme = null) { // FIXME: change code to take SVG element as shape arg?
         // Create a new element in the SVG namespace.
-        // this.element = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         this.element = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
         this.element.setAttributeNS(null, "id", "spaceship");
-        this.element.setAttributeNS(null, "points", "5,10 0,20 30,10 0,0");
-
-        // this.element = document.createElement("div")
-        this.element.style.position = "absolute";
-        this.element.style.top = this.element.style.left = "0px";
-        // this.element.style.fontSize = "24px";
-        // this.element.textContent = shape;
-        // this.element.style.color  = "green";
-        this.element.style.zIndex  = 100;
+        this.element.setAttributeNS(null, "points", "0,0 -5,10 30,0 -5,-10");
+        let shipEngineRelativePos = {x: 5, y: 10};
 
 
         container.appendChild(this.element);
+        // CSS Transform matrix
         this.matrix = [1,0,0,1,0,0];
-        this.pos = { x : innerWidth / 2 + innerWidth * xOff, y : innerHeight / 2 };
+        this.pos = { x : innerWidth / 2 + innerWidth * xOff, y : innerHeight / 2 }; // old
         this.delta = { x : 0, y : 0};
         
         // Set custom control scheme if supplied, else use own default.
