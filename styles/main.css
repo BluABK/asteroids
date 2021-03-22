@@ -22,7 +22,7 @@ body {
     /* width: var(--world-width); */
     /* height: var(--world-height); */
     width: var(--world-width);
-    width: 100%
+    width: 100%;
     /* Fixes issue with width overflowing. */
     max-width: 100%;
     height: var(--world-height);
@@ -30,7 +30,7 @@ body {
   
 #spaceship {
     /* To be unset by game when it is actually ready to show it. */
-    display: none;
+    /* display: none; */
     fill: orange;
     stroke: rgb(255, 217, 0);
     stroke-width: 2px;

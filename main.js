@@ -120,9 +120,13 @@ window.focus();
 
 // worldElement.appendChild("span");
 var world = document.getElementById("world-element");
+var shipSvgElement = document.getElementById("world-svg-element");
+
 // Add spaceship.
 var shipTemplate = Object.assign({}, ship);
-var player = shipTemplate.create("=Scl>", world, -0.4, "oldSchool");
+var player = shipTemplate.create("=Scl>", shipSvgElement, -0.4, "oldSchool");
+console.log("player", player);
+player.element.style.display = "block";
 // var player = shipTemplate.create("=Scl>", world, -0.4, "speedLimiter");
 
 
