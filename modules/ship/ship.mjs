@@ -85,7 +85,7 @@ export const ship = {
         // this.element = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         this.element = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
         this.element.setAttributeNS(null, "id", "spaceship");
-        this.element.setAttributeNS(null, "points", "0,0 30,15 0,26");
+        this.element.setAttributeNS(null, "points", "5,10 0,20 30,10 0,0");
 
         // this.element = document.createElement("div")
         this.element.style.position = "absolute";
