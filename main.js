@@ -5,8 +5,6 @@ import {ship} from "./modules/ship/ship.mjs";
 // document.getElementById("set-spaceship-move-rate").addEventListener("input", function() { setSpaceshipMoveRate(this.value)});
 // document.getElementById("set-spaceship-turn-rate").addEventListener("input", function() { setSpaceshipTurnRate(this.value)});
 
-// requestAnimationFrame(mainLoop);
-
 // Rebind keypress events to our own custom handler.
 addEventListener("keyup", keys.event);
 addEventListener("keydown", keys.event);
@@ -15,8 +13,7 @@ addEventListener("keydown", keys.event);
 // the window isn't guaranteed to be frontmost before this method returns.
 focus();
 
-// let worldElement = document.getElementById("world-svg-element");
-
+let worldElement = document.getElementById("world-element");
 // let world = {
 //     width: document.getElementById("world-svg-element").clientWidth,
 //     height: document.getElementById("world-svg-element").clientHeight,
@@ -31,103 +28,37 @@ focus();
 
 // let spaceshipMoveRate = SPACESHIP_DEFAULT_MOVE_RATE;
 // let spaceshipTurnRate = SPACESHIP_DEFAULT_TURN_RATE;
-// // Start with spaceship facing "north".
-// let spaceshipAngle = 0;
-// // let spaceship = document.getElementById("spaceship");
 
-// let spaceshipSize = {
-//     width: 30,
-//     height: 30
-// };
-
-// let position = {
-//     // Start at the centre of the world.
-//     x: world.width / 2,
-//     y: world.height / 2
-// };
-
-// function setSpaceshipMoveRate(rate = SPACESHIP_DEFAULT_MOVE_RATE) {
-//     console.log(`Setting spaceship move rate: ${spaceshipMoveRate} --> ${rate}`, rate);
-//     spaceshipMoveRate = rate;
-
-//     // Update HTML.
-//     document.getElementById("set-spaceship-move-rate").innerHTML = rate;
-//     document.getElementById("spaceship-move-rate-indicator").innerHTML = rate;
-// }
-
-// function setSpaceshipTurnRate(rate = SPACESHIP_DEFAULT_TURN_RATE) {
-//     console.log(`Setting spaceship turn rate: ${spaceshipTurnRate} --> ${rate}`, rate);
-//     spaceshipTurnRate = rate;
-
-//     // Update HTML.
-//     document.getElementById("set-spaceship-turn-rate").innerHTML = rate;
-//     document.getElementById("spaceship-turn-rate-indicator").innerHTML = rate;
-// }
-
-// /**
-//  * Updates current position with an offset (usually spaceship move rate).
-//  *
-//  * @param {} offset
-//  */
-// function updatePosition(offset) {
-//     let rad = spaceshipAngle * (Math.PI / 180);
-//     position.x += (Math.sin(rad) * offset);
-//     position.y -= (Math.cos(rad) * offset);
-
-//     // Ensure spaceship stays within bounds (X-axis).
-//     if (position.x < 0) {
-//         position.x = world.boundaryX;
-//     } else if (position.x > world.boundaryX) {
-//         position.x = 0;
+// FIXME: Kept for later non-player object use.
+// // Object holding all ship objects.
+// const ships = {
+//     items : [],
+//     controling : 0,
+//     add(ship){ this.items.push(ship) },
+//     update(){
+//         for(let i = 0; i < this.items.length; i++){
+//             this.items[i].updateUserIO();
+//             this.items[i].updatePos();
+//         }
 //     }
-
-//     // Ensure spaceship stays within bounds (Y-axis).
-//     if (position.y < 0) {
-//         position.y = world.boundaryY;
-//     } else if (position.y > world.boundaryY) {
-//         position.y = 0;
-//     }
-
-//     console.log(`Update position [${position.x}, ${position.y}] (offset: ${offset})...`);
 // }
 
-// Object holding all ship objects.
-const ships = {
-    items : [],
-    controling : 0,
-    add(ship){ this.items.push(ship) },
-    update(){
-        for(let i = 0; i < this.items.length; i++){
-            this.items[i].updateUserIO();
-            this.items[i].updatePos();
-        }
-    }
-}
-
-////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////
-
-// var contain = document.getElementById("world");
-// // var contain = document.createElement("div");
-// contain.setAttribute("id", "contain");
-// contain.style.position = "absolute";
-// contain.style.top = contain.style.left = "0px";
-// contain.style.width = contain.style.height = "100%";
-// contain.style.overflow = "hidden";
-// document.body.appendChild(contain);
 window.focus();
 
-// worldElement.appendChild("span");
-var world = document.getElementById("world-element");
-var shipSvgElement = document.getElementById("world-svg-element");
+let shipSvgElement = document.getElementById("world-svg-element");
+
+// Create player/spaceship shape in the SVG namespace.
+let shipShape = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+shipShape.setAttributeNS(null, "id", "spaceship");
+shipShape.setAttributeNS(null, "points", "0,0 -5,10 30,0 -5,-10");
+// Add shape to the spaceship SVG container.
+shipSvgElement.appendChild(shipShape);
 
 // Add spaceship.
 var shipTemplate = Object.assign({}, ship);
-var player = shipTemplate.create("=Scl>", shipSvgElement, -0.4, "oldSchool");
-console.log("player", player);
-player.element.style.display = "block";
-// var player = shipTemplate.create("=Scl>", world, -0.4, "speedLimiter");
+// Controls avail: oldSchool, oldSchoolDrag, speedster, speedLimiter, engineRev
+var player = shipTemplate.create(shipShape, {x: 0.31, y: 1.0}, "oldSchool");
+console.log("Player spawned.", player);
 
 
 // ships.add(Object.assign({}, ship).create("=Scl>", world, -0.4, "oldSchool"));
@@ -135,13 +66,6 @@ player.element.style.display = "block";
 // ships.add(Object.assign({},ship).create("=Fast>",world,-0.1,"speedster"));
 // ships.add(Object.assign({},ship).create("=Nimble>",world,0.05,"speedLimiter"));
 // ships.add(Object.assign({},ship).create("=Rev>",world,0.2,"engineRev"));
-// function update() {
-//     let x = position.x - (spaceshipSize.width / 2);
-//     let y = position.y - (spaceshipSize.height / 2);
-//     let transform = "translate(" + x + " " + y + ") rotate(" + spaceshipAngle + " 15 15) ";
-
-//     spaceship.setAttribute("transform", transform);
-// }
 
 /**
  * Global code to run last.

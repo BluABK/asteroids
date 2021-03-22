@@ -75,30 +75,24 @@ export const ship = {
     /**
      * Create new spaceship.
      * 
-     * @param shape Shape of the spaceship.
-     * @param container Which element to append it to.
-     * @param xOff X-Axis offset.
-     * @param controlScheme Ship model controls to map it to (must be one of: oldSchool, oldSchoolDrag, speedster, engineRev or speedLimiter).
-     * @returns The created spaceship element.
+     * @param {HTMLElement} shape Shape of the spaceship.
+     * @param spawnOffset X, Y offset to spawn at.
+     * @param {float} spawnOffset.x X-Axis offset multiplier.
+     * @param {float} spawnOffset.y Y-Axis offset multiplier.
+     * @param {string} controlScheme {string} Ship model controls to map it to (must be one of: oldSchool, oldSchoolDrag, speedster, engineRev or speedLimiter).
+     * @returns {object} The created spaceship element.
      */
-    create(shape, container, xOff, customControlScheme = null) { // FIXME: change code to take SVG element as shape arg?
-        // Create a new element in the SVG namespace.
-        this.element = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-        this.element.setAttributeNS(null, "id", "spaceship");
-        this.element.setAttributeNS(null, "points", "0,0 -5,10 30,0 -5,-10");
-        let shipEngineRelativePos = {x: 5, y: 10};
+    create(shape, spawnOffset = {x: 0.31, y: 1}, customControlScheme = null) {
+        this.element = shape;
 
-
-        container.appendChild(this.element);
         // CSS Transform matrix
         this.matrix = [1,0,0,1,0,0];
-        this.pos = { x : innerWidth / 2 + innerWidth * xOff, y : innerHeight / 2 }; // old
+        this.pos = { x : (innerWidth / 2 + innerWidth) * spawnOffset.x, y : (innerHeight / 2) * spawnOffset.y}; // old
         this.delta = { x : 0, y : 0};
         
         // Set custom control scheme if supplied, else use own default.
-        console.log("customControlScheme", customControlScheme);
-
         let scheme = controlSchemeLoader(customControlScheme);
+        console.log("Using custom control scheme.", customControlScheme);
         scheme !== null ? this.controls = scheme : this.updateUserIO = this.defaultControls;
 
         // Return the newly created spaceship element.

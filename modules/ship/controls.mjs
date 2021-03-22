@@ -134,10 +134,9 @@ export const AVAILABLE = {
 
 export function controlSchemeLoader(controlScheme) {
     if (controlScheme in AVAILABLE) {
-        console.log("control scheme EXISTS", controlScheme);
         return AVAILABLE[controlScheme];
     } else {
-        console.error("control scheme NOT EXIST", controlScheme);
+        console.error(`The requested control scheme '${controlScheme}' does not exist!`);
         return null;
     }
 }
