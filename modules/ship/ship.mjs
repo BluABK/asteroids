@@ -57,7 +57,7 @@ export const ship = {
      * @param {string} controlScheme {string} Ship model controls to map it to (must be one of: oldSchool, oldSchoolDrag, speedster, engineRev or speedLimiter).
      * @returns {object} The created spaceship element.
      */
-    create(shape, spawnOffset = {x: 0.31, y: 1}, customControlScheme = null) {
+    create(shape, spawnOffset = {x: 0.325, y: 1}, customControlScheme = null) {
         this.element = shape;
 
         // CSS Transform matrix

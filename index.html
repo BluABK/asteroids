@@ -15,9 +15,29 @@
 
     <body>
         <script type="module" src="main.js"></script>
+        <script>
+            // index.html script
+            function closeDialog(dialog) {
+                dialog.style.display = "none";
+            }
+        </script>
 
         <div class="content">
             <div id="world-element" class="world">
+                <div id="main-menu" class="dialog">
+                    <h1>Main Menu</h1>
+                    <div id="control-scheme">
+                        <label for="control-schemes">Ship engine:</label>
+                        <select name="control-schemes" id="control-schemes">
+                            <option value="oldSchool" selected="selected">Old skool</option>
+                            <option value="oldSchoolDrag">Old skool w/ drag</option>
+                            <option value="speedster">Fast</option>
+                            <option value="speedLimiter">Nimble</option>
+                            <option value="engineRev">Rev</option>
+                        </select>
+                    </div>
+                    <button class="buttons" id="main-menu-submit-button" value="9" onclick="closeDialog(this.parentElement)">Start</span></button>
+                </div>
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="world-svg-element" class="world"></svg>
             </div>
         </div>
