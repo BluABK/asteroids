@@ -2,14 +2,14 @@ import {keys} from "../keys.mjs";
 
 export function oldSchoolControlScheme(ship) {
     // Controlled motion.
-    if(keys.ArrowUp) {
+    if (keys.ArrowUp || keys.KeyW) {
         ship.delta.x += Math.cos(ship.angle) * 0.1;
         ship.delta.y += Math.sin(ship.angle) * 0.1;
     }
-    if(keys.ArrowLeft) {
+    if (keys.ArrowLeft || keys.KeyA) {
         ship.deltaAngle -= 0.001;
     }
-    if(keys.ArrowRight) {
+    if (keys.ArrowRight || keys.KeyD) {
         ship.deltaAngle += 0.001;
     }
     
@@ -24,14 +24,14 @@ export function oldSchoolControlScheme(ship) {
 }
 
 export function oldSchoolDragControlScheme(ship) {
-    if(keys.ArrowUp) {
+    if (keys.ArrowUp || keys.KeyW) {
         ship.delta.x += Math.cos(ship.angle) * 0.5;
         ship.delta.y += Math.sin(ship.angle) * 0.5;
     }
-    if(keys.ArrowLeft) {
+    if (keys.ArrowLeft || keys.KeyA) {
         ship.deltaAngle -= 0.01;
     }
-    if(keys.ArrowRight) {
+    if (keys.ArrowRight || keys.KeyD) {
         ship.deltaAngle += 0.01;
     }
 
@@ -45,13 +45,13 @@ export function oldSchoolDragControlScheme(ship) {
 }
 
 export function speedsterControlScheme(ship) {
-    if(keys.ArrowUp) {
+    if (keys.ArrowUp || keys.KeyW) {
         ship.speed += 0.02;
     }
-    if(keys.ArrowLeft) {
+    if (keys.ArrowLeft || keys.KeyA) {
         ship.deltaAngle -= 0.01;
     }
-    if(keys.ArrowRight) {
+    if (keys.ArrowRight || keys.KeyD) {
         ship.deltaAngle += 0.01;
     }
 
@@ -68,15 +68,15 @@ export function speedsterControlScheme(ship) {
 }
 
 export function engineRevControlScheme(ship) {  // ship one has a 3 control. Engine speed then affects acceleration. 
-    if(keys.ArrowUp) {
+    if (keys.ArrowUp || keys.KeyW) {
         ship.engSpeed = 3
-    }else{
+    } else {
         ship.engSpeed *= 0.9;
     }
-    if(keys.ArrowLeft) {
+    if (keys.ArrowLeft || keys.KeyA) {
         ship.angle -= 0.1;
     }
-    if(keys.ArrowRight) {
+    if (keys.ArrowRight || keys.KeyD) {
         ship.angle += 0.1;
     }
 
@@ -99,15 +99,15 @@ export function engineRevControlScheme(ship) {  // ship one has a 3 control. Eng
 }
 
 export function speedLimiterControlScheme(ship) {
-    if(keys.ArrowUp) {
+    if (keys.ArrowUp || keys.KeyW) {
         ship.speed = 15;
-    }else{
+    } else {
         ship.speed = 0;
     }
-    if(keys.ArrowLeft) {
+    if (keys.ArrowLeft || keys.KeyA) {
         ship.angle -= 0.1;
     }
-    if(keys.ArrowRight) {
+    if (keys.ArrowRight || keys.KeyD) {
         ship.angle += 0.1;
     }
 

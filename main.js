@@ -60,7 +60,7 @@ var shipTemplate = Object.assign({}, ship);
 // Controls avail: oldSchool, oldSchoolDrag, speedster, speedLimiter, engineRev
 let shipControlScheme = controlSchemeLoader("speedLimiter");
 // Spawn player spaceship.
-var player = shipTemplate.create(shipShape, {x: 0.31, y: 1.0}, shipControlScheme);
+var player = shipTemplate.create(shipShape, {x: 0.31, y: 1.0});
 console.log("Player spawned.", player);
 
 /**
