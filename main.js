@@ -1,5 +1,6 @@
 import {keys} from "./modules/keys.mjs";
 import {ship} from "./modules/ship/ship.mjs";
+import {controlSchemeLoader} from "./modules/ship/controls.mjs";
 
 // // Settings items.
 // document.getElementById("set-spaceship-move-rate").addEventListener("input", function() { setSpaceshipMoveRate(this.value)});
@@ -57,37 +58,19 @@ shipSvgElement.appendChild(shipShape);
 // Add spaceship.
 var shipTemplate = Object.assign({}, ship);
 // Controls avail: oldSchool, oldSchoolDrag, speedster, speedLimiter, engineRev
-var player = shipTemplate.create(shipShape, {x: 0.31, y: 1.0}, "oldSchool");
+let shipControlScheme = controlSchemeLoader("speedLimiter");
+// Spawn player spaceship.
+var player = shipTemplate.create(shipShape, {x: 0.31, y: 1.0}, shipControlScheme);
 console.log("Player spawned.", player);
-
-
-// ships.add(Object.assign({}, ship).create("=Scl>", world, -0.4, "oldSchool"));
-// ships.add(Object.assign({},ship).create("=Drg>",world,-0.25,"oldSchoolDrag"));
-// ships.add(Object.assign({},ship).create("=Fast>",world,-0.1,"speedster"));
-// ships.add(Object.assign({},ship).create("=Nimble>",world,0.05,"speedLimiter"));
-// ships.add(Object.assign({},ship).create("=Rev>",world,0.2,"engineRev"));
-
-/**
- * Global code to run last.
- */
-
-
-// Make ship visisble (starts invisible to avoid glitchy-looking repositioning pre initial update).
-// spaceship.style.display = "block";
-
-// Run various setters so that HTML page gets updated with correct info.
-// setSpaceshipMoveRate();
-// setSpaceshipTurnRate();
 
 /**
  * The main loop.
  */
 function mainLoop(){
-    // console.log("player", player);
+    // Update player.
     player.updateUserIO();
     player.updatePos();
-    // ships.update();
-    // update();
+
     // Request an animation frame with callback to self, so that it repeats/recurses infinitely.
     requestAnimationFrame(mainLoop);
 }

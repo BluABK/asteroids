@@ -1,6 +1,6 @@
 import {keys} from "../keys.mjs";
 
-export function oldSchool(ship) {
+export function oldSchoolControlScheme(ship) {
     // Controlled motion.
     if(keys.ArrowUp) {
         ship.delta.x += Math.cos(ship.angle) * 0.1;
@@ -23,7 +23,7 @@ export function oldSchool(ship) {
     ship.displayAngle = ship.angle;
 }
 
-export function oldSchoolDrag(ship) {
+export function oldSchoolDragControlScheme(ship) {
     if(keys.ArrowUp) {
         ship.delta.x += Math.cos(ship.angle) * 0.5;
         ship.delta.y += Math.sin(ship.angle) * 0.5;
@@ -44,7 +44,7 @@ export function oldSchoolDrag(ship) {
     ship.displayAngle = ship.angle;
 }
 
-export function speedster(ship) {
+export function speedsterControlScheme(ship) {
     if(keys.ArrowUp) {
         ship.speed += 0.02;
     }
@@ -67,7 +67,7 @@ export function speedster(ship) {
     ship.displayAngle = ship.angle;
 }
 
-export function engineRev(ship) {  // ship one has a 3 control. Engine speed then affects acceleration. 
+export function engineRevControlScheme(ship) {  // ship one has a 3 control. Engine speed then affects acceleration. 
     if(keys.ArrowUp) {
         ship.engSpeed = 3
     }else{
@@ -98,7 +98,7 @@ export function engineRev(ship) {  // ship one has a 3 control. Engine speed the
     ship.displayAngle = ship.angleR;
 }
 
-export function speedLimiter(ship) {
+export function speedLimiterControlScheme(ship) {
     if(keys.ArrowUp) {
         ship.speed = 15;
     }else{
@@ -124,19 +124,19 @@ export function speedLimiter(ship) {
     ship.displayAngle = ship.angleR;
 }
 
-export const AVAILABLE = {
-    "oldSchool": oldSchool, 
-    "oldSchoolDrag": oldSchoolDrag, 
-    "speedster": speedster, 
-    "engineRev": engineRev, 
-    "speedLimiter": speedLimiter
+export const CONTROL_SCHEMES_AVAILABLE = {
+    "oldSchool": oldSchoolControlScheme, 
+    "oldSchoolDrag": oldSchoolDragControlScheme, 
+    "speedster": speedsterControlScheme, 
+    "engineRev": engineRevControlScheme, 
+    "speedLimiter": speedLimiterControlScheme
 };
 
 export function controlSchemeLoader(controlScheme) {
-    if (controlScheme in AVAILABLE) {
-        return AVAILABLE[controlScheme];
+    if (controlScheme in CONTROL_SCHEMES_AVAILABLE) {
+        return CONTROL_SCHEMES_AVAILABLE[controlScheme];
     } else {
-        console.error(`The requested control scheme '${controlScheme}' does not exist!`);
+        console.error("The requested control scheme does not exist!", controlScheme);
         return null;
     }
 }

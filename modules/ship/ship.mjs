@@ -1,11 +1,8 @@
-import {keys} from "../keys.mjs";
-// import * as controlSchemes from "./controls.mjs";
-import {AVAILABLE, controlSchemeLoader} from "./controls.mjs";
+import {oldSchoolControlScheme} from "./controls.mjs";
 
 export const ship = {
     element : null,
-    controls: null,
-    customControls: null,
+    controls: oldSchoolControlScheme,
     speed : 0,
     speedC : 0,  // chase value for speed limit mode
     speedR : 0,  // real value (real as in actual speed)
@@ -33,28 +30,6 @@ export const ship = {
             this.pos.y = 0;
         }
         
-    },
-    defaultControls() {
-        // Controlled motion.
-        if(keys.ArrowUp) {
-            this.delta.x += Math.cos(this.angle) * 0.1;
-            this.delta.y += Math.sin(this.angle) * 0.1;
-        }
-        if(keys.ArrowLeft) {
-            this.deltaAngle -= 0.001;
-        }
-        if(keys.ArrowRight) {
-            this.deltaAngle += 0.001;
-        }
-        
-        // Indirect effects.
-        this.pos.x += this.delta.x;
-        this.pos.y += this.delta.y;
-        this.angle += this.deltaAngle;
-        this.delta.x *= 0.995;
-        this.delta.y *= 0.995;
-        this.deltaAngle *= 0.995;            
-        this.displayAngle = this.angle;
     },
     /**
      * Empty function to be replaced by a control scheme.
@@ -90,10 +65,11 @@ export const ship = {
         this.pos = { x : (innerWidth / 2 + innerWidth) * spawnOffset.x, y : (innerHeight / 2) * spawnOffset.y}; // old
         this.delta = { x : 0, y : 0};
         
-        // Set custom control scheme if supplied, else use own default.
-        let scheme = controlSchemeLoader(customControlScheme);
-        console.log("Using custom control scheme.", customControlScheme);
-        scheme !== null ? this.controls = scheme : this.updateUserIO = this.defaultControls;
+        if (customControlScheme !== null) {
+            // Set custom control scheme if supplied, else use own default.
+            console.log("Using custom control scheme.", customControlScheme);
+            this.controls = customControlScheme;
+        }
 
         // Return the newly created spaceship element.
         return this;
