@@ -82,10 +82,11 @@ export const ship = {
      */
     create(shape, container, xOff, customControlScheme = null) { // FIXME: change code to take SVG element as shape arg?
         // Create a new element in the SVG namespace.
+        // this.element = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         this.element = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
         this.element.setAttributeNS(null, "id", "spaceship");
-        this.element.setAttributeNS(null, "points", "15,0 4,30 26,30");
-        
+        this.element.setAttributeNS(null, "points", "0,0 30,15 0,26");
+
         // this.element = document.createElement("div")
         this.element.style.position = "absolute";
         this.element.style.top = this.element.style.left = "0px";
