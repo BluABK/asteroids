@@ -27,13 +27,21 @@ body {
     max-width: 100%;
     height: var(--world-height);
 }
-  
+
+.unspawned-object {
+    display: none;
+}
+
 #spaceship {
     /* To be unset by game when it is actually ready to show it. */
     /* display: none; */
     fill: orange;
     stroke: rgb(255, 217, 0);
     stroke-width: 2px;
+}
+
+.asteroid {
+    stroke: white;
 }
 
 .dialog {
