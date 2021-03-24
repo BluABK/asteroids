@@ -41,7 +41,9 @@ body {
 }
 
 .asteroid {
+    stroke-width: 0.1px;
     stroke: white;
+    fill:rgba(0, 0, 0, 0);
 }
 
 .dialog {

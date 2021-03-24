@@ -39,8 +39,6 @@ console.log("playerShipShape", playerShipShape);
 let asteroidType2 = document.createElementNS(SVG_NS, "path");
 asteroidType2.setAttributeNS(SVG_NS, "id", "asteroid2");
 asteroidType2.setAttribute("d", "M 13.229173,13.229166 7.9375033,11.90625 h -5.29167 L 3.3333333e-6,7.9375003 6.6145833,2.6458333 H 10.583333 L 11.906253,6.3333333e-7 17.197923,1.3229176 l 2.64583,3.9687497 5.29167,1.322917 1.32291,2.645833 -2.64583,2.6458327 -5.29167,1.322917 -5.29166,-1e-6");
-asteroidType2.setAttribute("fill", "white");
-// asteroidType2.setAttribute("transform", "scale(15.0)");
 asteroidType2.classList.add("asteroid");
 console.log("asteroidType2", asteroidType2);
 
