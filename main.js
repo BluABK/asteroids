@@ -72,7 +72,7 @@ function clone(element){
     return clonedElement;
 }
 
-function createAndSpawnAsteroid(asteroidType, pos = {x: 0, y: 0}) {
+function createAndSpawnAsteroid(asteroidType, scale, pos = {x: 0, y: 0}) {
     // Add shape to the spaceship SVG container.
     worldSvgElement.appendChild(asteroidType);
 
@@ -93,7 +93,7 @@ function createAndSpawnAsteroid(asteroidType, pos = {x: 0, y: 0}) {
 
     // Spawn the asteroid.
     // let asteroidElement = asteroid.create(asteroidClone, pos);
-    let asteroidElement = asteroid.create(asteroidType, pos);
+    let asteroidElement = asteroid.create(asteroidType, scale, pos);
 
     return asteroidElement;
 }
@@ -104,7 +104,7 @@ function startGame() {
     console.log("Player spawned.", player);
 
     // Spawn asteroids
-    myAsteroid = createAndSpawnAsteroid(asteroidType2, {x: 0.325, y: 1.0});
+    myAsteroid = createAndSpawnAsteroid(asteroidType2, 15, {x: Math.random(), y: Math.random()});
     console.log("Asteroid spawned.", myAsteroid);
 
     // Tell the browser that we wish to perform an animation and request that the browser

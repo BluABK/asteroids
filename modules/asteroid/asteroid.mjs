@@ -1,5 +1,6 @@
 export const asteroid = {
     element : null,
+    scale: 1,
     speed : 0,
     speedC : 0,  // chase value for speed limit mode
     speedR : 0,  // real value (real as in actual speed)
@@ -42,8 +43,7 @@ export const asteroid = {
         m[4] = this.pos.x;
         m[5] = this.pos.y;
 
-        // this.element.style.transform = `matrix(${m.join(",")})`;
-        this.element.style.transform = `matrix(${m.join(",")}) scale(5.0)`;
+        this.element.style.transform = `matrix(${m.join(",")}) scale(${this.scale})`;
     },
     /**
      * Create new spaceship.
@@ -55,10 +55,11 @@ export const asteroid = {
      * @param {string} controlScheme {string} Ship model controls to map it to (must be one of: oldSchool, oldSchoolDrag, speedster, engineRev or speedLimiter).
      * @returns {object} The created spaceship element.
      */
-    create(shape, spawnOffset = {x: 0.325, y: 1}) {
+    create(shape, scale, spawnOffset = {x: 0.325, y: 1}) {
         this.element = shape;
 
         // CSS Transform matrix
+        this.scale = scale;
         this.matrix = [1,0,0,1,0,0];
         this.pos = { x : (innerWidth / 2 + innerWidth) * spawnOffset.x, y : (innerHeight / 2) * spawnOffset.y};
         this.delta = { x : 0, y : 0};
