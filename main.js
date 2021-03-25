@@ -18,10 +18,11 @@ document.getElementById("main-menu-submit-button").addEventListener("click", sta
 focus();
 
 const SVG_NS = "http://www.w3.org/2000/svg";
+const SPAWN_CENTER_OFFSET = {x: 1.0, y: 1.0};
 
 let worldElement = document.getElementById("world-element");
 let worldSvgElement = document.getElementById("world-svg-element");
-// Controls avail: oldSchool, oldSchoolDrag, speedster, speedLimiter, engineRev
+const WORLD_BOUNDARY = {x: worldSvgElement.clientWidth, y: worldSvgElement.clientHeight};
 let playerShipControlScheme = null;
 let playerShipShape;
 let player;
@@ -49,7 +50,14 @@ function setControlScheme(schemeId) {
     playerShipControlScheme = controlSchemeLoader(schemeId);
 }
 
-function createAndSpawnShip(shipShape) {    
+function createAndSpawnShip(shipShape, spawnOffset = SPAWN_CENTER_OFFSET) {
+    // Ensure ship can't spawn oob.
+    if ( 0 > spawnOffset.x || spawnOffset.x > WORLD_BOUNDARY.x || 
+         0 > spawnOffset.y || spawnOffset.y > WORLD_BOUNDARY.y ) {
+        console.error(`Attempted spawning ship OOB {x: ${spawnOffset.x}, y: ${spawnOffset.x}}, spawning at center instead!`);
+        spawnOffset = SPAWN_CENTER_OFFSET;
+    }
+    
     // Add shape to the spaceship SVG container.
     worldSvgElement.appendChild(shipShape);
     
@@ -57,7 +65,7 @@ function createAndSpawnShip(shipShape) {
     let shipTemplate = Object.assign({}, ship);
     
     // Spawn the spaceship.
-    let shipElement = shipTemplate.create(shipShape, {x: 0.325, y: 1.0}, playerShipControlScheme);
+    let shipElement = shipTemplate.create(shipShape, spawnOffset, playerShipControlScheme);
     
     return shipElement;
 }
@@ -70,7 +78,15 @@ function clone(element){
     return clonedElement;
 }
 
-function createAndSpawnAsteroid(asteroidType, scale, pos = {x: 0, y: 0}) {
+function createAndSpawnAsteroid(asteroidType, scale, spawnOffset = SPAWN_CENTER_OFFSET) {
+    console.log("Asteroid spawnOffset", spawnOffset);
+    // Ensure asteroid can't spawn oob.
+    if ( 0 > spawnOffset.x || spawnOffset.x > WORLD_BOUNDARY.x || 
+         0 > spawnOffset.y || spawnOffset.y > WORLD_BOUNDARY.y ) {
+        console.error(`Attempted spawning asteroid OOB {x: ${spawnOffset.x}, y: ${spawnOffset.x}}, spawning at center instead!`);
+        spawnOffset = SPAWN_CENTER_OFFSET;
+    }
+
     // Add shape to the spaceship SVG container.
     worldSvgElement.appendChild(asteroidType);
 
@@ -80,7 +96,7 @@ function createAndSpawnAsteroid(asteroidType, scale, pos = {x: 0, y: 0}) {
     // let asteroidClone = JSON.parse(JSON.stringify(asteroidType));
     // let asteroidClone = clone(asteroidType);
     // console.log("asteroidClone", asteroidClone);
-    // asteroidClone.setAttribute("pos", pos);
+    // asteroidClone.setAttribute("spawnOffset", spawnOffset);
     // asteroidClone.classList.remove("unspawned-object");
     
 
@@ -90,8 +106,8 @@ function createAndSpawnAsteroid(asteroidType, scale, pos = {x: 0, y: 0}) {
     console.log("asteroidTemplate", asteroidTemplate);
 
     // Spawn the asteroid.
-    // let asteroidElement = asteroid.create(asteroidClone, pos);
-    let asteroidElement = asteroid.create(asteroidType, scale, pos);
+    // let asteroidElement = asteroid.create(asteroidClone, spawnOffset);
+    let asteroidElement = asteroid.create(asteroidType, scale, spawnOffset);
 
     return asteroidElement;
 }
