@@ -1,4 +1,4 @@
-import {uuidv4} from "./modules/utils.mjs";
+import {uuidv4, getParameterByName, closeDialog} from "./modules/utils.mjs";
 import {keys} from "./modules/keys.mjs";
 import {ship} from "./modules/ship/ship.mjs";
 import {asteroid} from "./modules/asteroid/asteroid.mjs";
@@ -9,7 +9,7 @@ addEventListener("keyup", keys.event);
 addEventListener("keydown", keys.event);
 document.getElementById("control-schemes").addEventListener("change", (event) => { setControlScheme(event.target.value) });
 document.getElementById("set-max-asteriods").addEventListener("input", (event) => { setMaxAsteroids(event.target.value) });
-document.getElementById("main-menu-submit-button").addEventListener("click", startGame);
+document.getElementById("main-menu-submit-button").addEventListener("click", closeMainMenuAndStartGame);
 
 // Makes a request to bring the window to the front. It may fail due to user settings and 
 // the window isn't guaranteed to be frontmost before this method returns.
@@ -36,9 +36,14 @@ function setControlScheme(schemeId) {
 }
 
 function setMaxAsteroids(amount) {
-    maxAsteroids = amount;
-    document.getElementById("menu-ui-max-asteroids").innerHTML = amount;
-    console.log(`setMaxAsteroids(${amount})`);
+    if (parseInt(amount) != NaN) {
+        maxAsteroids = parseInt(amount);
+        document.getElementById("menu-ui-max-asteroids").innerHTML = parseInt(amount);
+        console.log(`setMaxAsteroids(${amount})`);
+    } else {
+        console.error(`setMaxAsteroids: parseInt(${amount}) is NaN!`. amount, parseInt(amount));
+        document.getElementById("menu-ui-max-asteroids").innerHTML = 'NaN ERROR!';
+    }
 }
 
 function createAndSpawnShip(shipShape, spawnOffset = SPAWN_CENTER_OFFSET) {
@@ -155,6 +160,11 @@ function startGame() {
     requestAnimationFrame(mainLoop);
 }
 
+function closeMainMenuAndStartGame() {
+    closeDialog(document.getElementById("main-menu"));
+    startGame();
+}
+
 /**
  * The main loop.
  */
@@ -171,4 +181,22 @@ function mainLoop(){
 
     // Request an animation frame with callback to self, so that it repeats/recurses infinitely.
     requestAnimationFrame(mainLoop);
+}
+
+// URL Param handling
+let controlSchemeParam = getParameterByName("controls")
+let asteroidsParam = getParameterByName("asteroids");
+let justStartParam = getParameterByName("start");
+
+if (asteroidsParam !== null && asteroidsParam !== "") {
+    setMaxAsteroids(asteroidsParam);
+}
+
+if (controlSchemeParam !== null && controlSchemeParam !== "") {
+    setControlScheme(controlSchemeParam);
+}
+
+// NB: Run last for settings override to actually get applied!
+if (justStartParam !== null) {
+    closeMainMenuAndStartGame();
 }
