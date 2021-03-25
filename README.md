@@ -5,4 +5,4 @@
 |-----------|--------------------------------------------------------------------------------------|
 | start     | Skip main-menu (config) and start the game immediately.                              |
 | controls  | Set control scheme (oldSchool, oldSchoolDrag, speedster, speedLimiter or engineRev). |
-| asteroids | Number of asteroids to spawn                                                         |
+| asteroids | Number of asteroids to spawn.                                                        |
