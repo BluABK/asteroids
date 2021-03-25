@@ -16,8 +16,7 @@ focus();
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 const SPAWN_CENTER_OFFSET = {x: 1.0, y: 1.0};
-const MAX_ASTEROIDS = 10;
-let worldElement = document.getElementById("world-element");
+let maxAsteroids = 20;
 let worldSvgElement = document.getElementById("world-svg-element");
 const WORLD_BOUNDARY = {x: worldSvgElement.clientWidth, y: worldSvgElement.clientHeight};
 let playerShipControlScheme = null;
@@ -117,8 +116,6 @@ function createAsteroidShape() {
     asteroidShape.classList.add("asteroid");
     console.log("asteroidShape", asteroidShape);
 
-    asteroidShape.setAttributeNS(SVG_NS, "stroke", Math.floor(Math.random()*16777215).toString(16));
-
     return asteroidShape;
 }
 
@@ -126,7 +123,7 @@ function createAsteroidShape() {
  * Creates and spawns a given amount of asteroid elements.
  * @param {} amount 
  */
-function createAndSpawnAsteroids(amount = MAX_ASTEROIDS) {
+function createAndSpawnAsteroids(amount = maxAsteroids) {
     for (let i = 0; i < amount; i++) {
         let asteroidShape = createAsteroidShape();
     

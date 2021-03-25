@@ -74,7 +74,7 @@ export const asteroid = {
         // CSS Transform matrix
         this.scale = scale;
         this.matrix = [1,0,0,1,0,0];
-        this.pos = { x : (innerWidth / 2) * spawnOffset.x, y : (innerHeight / 2) * spawnOffset.y};
+        this.pos = { x : innerWidth * spawnOffset.x, y : innerHeight * spawnOffset.y};
         this.delta = { x : 0, y : 0};
 
         // Return the newly created asteroid element.

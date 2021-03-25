@@ -66,7 +66,7 @@ export const ship = {
 
         // CSS Transform matrix
         this.matrix = [1,0,0,1,0,0];
-        this.pos = { x : (innerWidth / 2) * spawnOffset.x, y : (innerHeight / 2) * spawnOffset.y}; // old
+        this.pos = { x : (innerWidth / 2) * spawnOffset.x, y : (innerHeight / 2) * spawnOffset.y};
         this.delta = { x : 0, y : 0};
         
         if (customControlScheme !== null) {
