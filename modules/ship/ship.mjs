@@ -59,7 +59,7 @@ export const ship = {
      */
     create(shape, spawnOffset = null, customControlScheme = null) {
         if (spawnOffset == null) {
-            spawnOffset = {x: 0.325, y: 1}
+            spawnOffset = {x: 1.0, y: 1}
         }
 
         this.element = shape;

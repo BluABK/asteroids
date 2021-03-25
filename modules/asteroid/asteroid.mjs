@@ -29,11 +29,20 @@ export const asteroid = {
         }
         
     },
-    /**
-     * Empty function to be replaced by a control scheme.
-     */
-    updateUserIO() {
-        this.controls(this);
+    move(deltaX = 0, deltaY = 0, deltaAngle = 0) {
+        this.delta.x += Math.cos(this.angle) * deltaX;
+        this.delta.y += Math.sin(this.angle) * deltaY;
+        this.deltaAngle += deltaAngle;
+    },
+    updateMovement() {
+        // Indirect effects.
+        this.pos.x += this.delta.x;
+        this.pos.y += this.delta.y;
+        this.angle += this.deltaAngle;
+        this.delta.x *= 0.995;
+        this.delta.y *= 0.995;
+        // this.deltaAngle *= 0.995;            
+        this.displayAngle = this.angle;
     },
     updatePos() {
         this.checkInView();
@@ -66,8 +75,6 @@ export const asteroid = {
         this.scale = scale;
         this.matrix = [1,0,0,1,0,0];
         this.pos = { x : (innerWidth / 2) * spawnOffset.x, y : (innerHeight / 2) * spawnOffset.y};
-        console.log("innerWidth", innerWidth);
-        console.log("innerHeight", innerHeight);
         this.delta = { x : 0, y : 0};
 
         // Return the newly created asteroid element.
