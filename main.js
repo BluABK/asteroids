@@ -8,6 +8,7 @@ import {controlSchemeLoader} from "./modules/ship/controls.mjs";
 addEventListener("keyup", keys.event);
 addEventListener("keydown", keys.event);
 document.getElementById("control-schemes").addEventListener("change", (event) => { setControlScheme(event.target.value) });
+document.getElementById("set-max-asteriods").addEventListener("input", (event) => { setMaxAsteroids(event.target.value) });
 document.getElementById("main-menu-submit-button").addEventListener("click", startGame);
 
 // Makes a request to bring the window to the front. It may fail due to user settings and 
@@ -32,6 +33,12 @@ window.focus();
 function setControlScheme(schemeId) {
     console.log("setControlScheme", schemeId);
     playerShipControlScheme = controlSchemeLoader(schemeId);
+}
+
+function setMaxAsteroids(amount) {
+    maxAsteroids = amount;
+    document.getElementById("menu-ui-max-asteroids").innerHTML = amount;
+    console.log(`setMaxAsteroids(${amount})`);
 }
 
 function createAndSpawnShip(shipShape, spawnOffset = SPAWN_CENTER_OFFSET) {

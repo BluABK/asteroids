@@ -28,6 +28,7 @@
                 <div id="main-menu" class="dialog">
                     <h1>Main Menu</h1>
                     <div id="control-scheme">
+                        <h3>Controls</h3>
                         <label for="control-schemes">Ship engine:</label>
                         <select name="control-schemes" id="control-schemes">
                             <option value="oldSchool" selected="selected">Old skool</option>
@@ -37,7 +38,12 @@
                             <option value="engineRev">Rev</option>
                         </select>
                     </div>
-                    <button class="buttons" id="main-menu-submit-button" value="9" onclick="closeDialog(this.parentElement)">Start</span></button>
+                    <div id="spawn-settings">
+                        <h3>Spawn settings</h3>
+                        <label for="set-max-asteriods">Asteroids: <span id="menu-ui-max-asteroids">20</span></label>
+                        <input id="set-max-asteriods" type="range" min="0" max="1000" step="1" value="20" />
+                    </div>
+                    <button class="buttons" id="main-menu-submit-button" onclick="closeDialog(this.parentElement)">Start</span></button>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="world-svg-element" class="world"></svg>
             </div>
