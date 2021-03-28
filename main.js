@@ -173,7 +173,7 @@ function mainLoop(){
     player.updateUserIO();
     player.updatePos();
     
-    // Update Asteroids FIXME: Only one atm.
+    // Update Asteroids.
     for (let i = 0; i < asteroids.length; i++) {
         asteroids[i].updatePos();
         asteroids[i].updateMovement();
