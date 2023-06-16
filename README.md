@@ -1,5 +1,7 @@
 # Asteroids-like Game with No Name
 
+[Click here for playable demo](https://bluabk.github.io/asteroids/)
+
 ## Optional URL parameters
 | Parameter | Description                                                                          |
 |-----------|--------------------------------------------------------------------------------------|
